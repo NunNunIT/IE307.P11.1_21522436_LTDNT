@@ -1,3 +1,4 @@
+// 21522436 - Nguyễn Thị Hồng Nhung
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -56,6 +57,7 @@ const SelectList = () => {
     }
   };
 
+  // 21522436 - Nguyễn Thị Hồng Nhung
   const renderFlatItem = ({ item }: { item: { type: string } }) => (
     <Item
       title={item.type}
@@ -101,6 +103,7 @@ const SelectList = () => {
         </ImageBackground>
       </View>
 
+      {/* 21522436 - Nguyễn Thị Hồng Nhung */}
       {/* SectionList for fruits and vegetables */}
       <View className="flex-[0.45]">
         <ImageBackground
@@ -128,39 +131,32 @@ const SelectList = () => {
           </View>
         </ImageBackground>
       </View>
-
       {/* Display selected items */}
       <View className="flex flex-[0.15] flex-col items-start justify-start gap-2 bg-white p-2 dark:bg-zinc-900">
         <ScrollView>
           <View className="flex flex-row flex-wrap gap-2">
             <Text className="mb-2 font-bold text-red-600">Exercise:</Text>
             {selectedWorkOutItems.map((item, index) => (
-              <>
-                <Text key={index} className="mb-1 w-fit rounded-full bg-sky-500 px-2 text-white">
-                  {item}
-                </Text>
-              </>
+              <Text key={index} className="mb-1 w-fit rounded-full bg-sky-500 px-2 text-white">
+                {item}
+              </Text>
             ))}
           </View>
           <View className="flex flex-row flex-wrap gap-2">
             <Text className="mb-2 font-bold text-red-600">Fruit:</Text>
             {selectedFruitItems.map((item, index) => (
-              <>
-                <Text key={index} className="mb-1 w-fit rounded-full bg-sky-500 px-2 text-white">
-                  {item}
-                </Text>
-              </>
+              <Text key={index} className="mb-1 w-fit rounded-full bg-sky-500 px-2 text-white">
+                {item}
+              </Text>
             ))}
           </View>
 
           <View className="flex flex-row flex-wrap gap-2">
             <Text className="mb-2 font-bold text-red-600">Vetgetable:</Text>
             {selectedVegetableItems.map((item, index) => (
-              <>
-                <Text key={index} className="mb-1 w-fit rounded-full bg-sky-500 px-2 text-white">
-                  {item}
-                </Text>
-              </>
+              <Text key={index} className="mb-1 w-fit rounded-full bg-sky-500 px-2 text-white">
+                {item}
+              </Text>
             ))}
           </View>
         </ScrollView>

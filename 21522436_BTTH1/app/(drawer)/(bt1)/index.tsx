@@ -1,3 +1,4 @@
+// 21522436 - Nguyễn Thị Hồng Nhung
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 

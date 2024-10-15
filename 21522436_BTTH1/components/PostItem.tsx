@@ -1,3 +1,4 @@
+// 21522436 - Nguyễn Thị Hồng Nhung
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, Pressable, useColorScheme } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -79,6 +80,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     setShowEmotions(true);
   };
 
+  // 21522436 - Nguyễn Thị Hồng Nhung
   return (
     <View className="mb-4 bg-white py-4 dark:bg-zinc-900">
       {/* User Info */}
