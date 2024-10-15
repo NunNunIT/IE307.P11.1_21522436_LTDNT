@@ -8,6 +8,8 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
+*.zip
+*.rar
 web-build/
 # expo router
 expo-env.d.ts
