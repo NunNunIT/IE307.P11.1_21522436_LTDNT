@@ -9,12 +9,17 @@ const DrawerLayout = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
 
   return (
-    <Drawer>
+    <Drawer
+      screenOptions={{
+        drawerIcon: ({ size, color }) => <Icon name="home-outline" size={size} color={color} />,
+        // headerBackgroundContainerStyle: { backgroundColor: 'white' },
+        headerStyle: { backgroundColor: colorScheme === 'light' ? '#14b8a6' : '#0d9488' },
+      }}>
       <Drawer.Screen
         name="index"
         options={{
-          headerTitle: 'Home',
-          drawerLabel: 'Home',
+          // headerTitle: 'Home',
+          // drawerLabel: 'Home',
           drawerIcon: ({ size, color }) => <Icon name="home" size={size} color={color} />,
           // headerRight: () => (
           //   <Pressable
@@ -46,9 +51,9 @@ const DrawerLayout = () => {
         }}
       />
       <Drawer.Screen
-        name="(bt2)/(auth)/login"
+        name="(bt2)"
         options={{
-          headerTitle: 'BT2',
+          headerTitle: '',
           drawerLabel: 'BT2',
           drawerIcon: ({ size, color }) => <Icon name="carrot" size={size} color={color} />,
           headerRight: () => (

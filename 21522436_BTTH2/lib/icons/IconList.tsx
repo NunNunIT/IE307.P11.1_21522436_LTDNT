@@ -1,4 +1,4 @@
-import { X, Mail, Lock, User, Menu } from 'lucide-react-native';
+import { X, Mail, Lock, User, Menu, Home, Component, Heart, Eye, EyeClosed } from 'lucide-react-native';
 
 import { iconWithClassName } from './iconWithClassName';
 iconWithClassName(X);
@@ -6,4 +6,9 @@ iconWithClassName(Mail);
 iconWithClassName(Lock);
 iconWithClassName(User);
 iconWithClassName(Menu);
-export { X, Mail, Lock, User, Menu };
+iconWithClassName(Home);
+iconWithClassName(Component);
+iconWithClassName(Heart);
+iconWithClassName(Eye);
+iconWithClassName(EyeClosed);
+export { X, Mail, Lock, User, Menu, Home, Component, Heart, Eye, EyeClosed };

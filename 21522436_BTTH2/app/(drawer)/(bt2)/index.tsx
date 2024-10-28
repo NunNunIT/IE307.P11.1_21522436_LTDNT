@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, ScrollView, Image } from 'react-native';
 
 import { DarkSwitch } from '~/components/darkMode-switch/darkMode-switch';
 import { Button } from '~/components/ui/button';
@@ -14,6 +14,7 @@ import {
 } from '~/components/ui/dialog';
 import { Input } from '~/components/ui/input';
 import { Switch } from '~/components/ui/switch';
+import { Text } from '~/components/ui/text';
 
 const SettingsScreen = () => {
   // State management
@@ -37,8 +38,13 @@ const SettingsScreen = () => {
     <View className="flex-1 bg-white p-4 dark:bg-black">
       {/* Logo and App Name */}
       <View className="mb-6 h-32 items-center">
-        <Image source={{ uri: '~/assets/logo.png' }} className="aspect-square size-20" />
-        <Text className="text-xl text-black dark:text-white">React Native App</Text>
+        <Image
+          source={require('~/assets/logo.png')}
+          // source={require('~/assets/images/react-logo.png')}
+          className="aspect-square"
+          style={{ width: '100%', height: '100%' }}
+        />
+        <Text className="text-xl">React Native App</Text>
       </View>
 
       {/* Switches */}
