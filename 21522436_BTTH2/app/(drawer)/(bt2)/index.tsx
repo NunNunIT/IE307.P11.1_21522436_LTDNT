@@ -70,7 +70,7 @@ const SettingsScreen = () => {
         placeholder="Your feedback here..."
         // placeholderTextColor="text-zinc-200 dark:text-zinc-600"
         value={feedback}
-        onChangeText={setFeedback}
+        onChangeText={setFeedback} 
         textAlignVertical="top"
         multiline
       />
