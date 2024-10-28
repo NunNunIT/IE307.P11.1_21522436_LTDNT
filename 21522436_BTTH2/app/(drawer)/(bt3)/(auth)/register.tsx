@@ -8,6 +8,15 @@ import { supabase } from '~/utils/supabase';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from '~/components/ui/dialog';
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -20,6 +29,8 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const validate = () => {
     const newErrors: any = {};
@@ -27,7 +38,9 @@ export default function Register() {
     if (!form.email) newErrors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = 'Invalid email format';
     if (!form.password) newErrors.password = 'Password is required';
+    if (!(form.password.length >= 8)) newErrors.password = 'Password must be at least 8 characters';
     if (!form.confirmPassword) newErrors.confirmPassword = 'Confirm password is required';
+    if (!(form.confirmPassword.length >= 8)) newErrors.confirmPassword = 'Password must be at least 8 characters';
     else if (form.password !== form.confirmPassword)
       newErrors.confirmPassword = 'Passwords do not match';
     setErrors(newErrors);
@@ -43,8 +56,13 @@ export default function Register() {
         password: form.password,
       });
 
-      if (error) Alert.alert(error.message);
       setLoading(false);
+      if (error) {
+        setErrorMessage(error.message);
+        setDialogVisible(true);
+      } else {
+        // Alert.alert('Success', 'Registration successful!');
+      }
     }
   };
 
@@ -169,6 +187,22 @@ export default function Register() {
           </Link>
         </Text>
       </View>
+
+      {/* Dialog for registration errors */}
+      <Dialog open={dialogVisible} onOpenChange={setDialogVisible}>
+        <DialogTrigger />
+        <DialogContent className="min-w-[50vw]">
+          <DialogHeader>
+            <DialogTitle>Registration Failed</DialogTitle>
+            <DialogDescription>{errorMessage}</DialogDescription>
+          </DialogHeader>
+          <DialogClose asChild>
+            <Button onPress={() => setDialogVisible(false)}>
+              <Text>OK</Text>
+            </Button>
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
     </SafeAreaView>
   );
 }

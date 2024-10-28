@@ -9,6 +9,15 @@ import { Input } from '~/components/ui/input';
 import { Text } from '~/components/ui/text';
 import { Mail, Lock, Eye, EyeClosed } from '~/lib/icons/IconList';
 import { supabase } from '~/utils/supabase';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from '~/components/ui/dialog';
 
 // Định nghĩa các giao diện
 interface Form {
@@ -26,6 +35,8 @@ export default function Login() {
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Hàm validate với kiểu dữ liệu rõ ràng
   const validate = () => {
@@ -40,6 +51,7 @@ export default function Login() {
     if (!form.password) {
       newErrors.password = 'Password is required';
     }
+    if (!(form.password.length >= 8)) newErrors.password = 'Password must be at least 8 characters';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -55,13 +67,12 @@ export default function Login() {
         password: form.password,
       });
 
-      if (error) {
-        Alert.alert('Error', error.message);
-      } else {
-        // Handle successful login here if needed
-      }
-
       setLoading(false);
+      if (error) {
+        setErrorMessage(error.message);
+        setDialogVisible(true);
+      } else {
+      }
     }
   };
 
@@ -146,6 +157,22 @@ export default function Login() {
           </Link>
         </Text>
       </View>
+
+      {/* Dialog for login errors */}
+      <Dialog open={dialogVisible} onOpenChange={setDialogVisible}>
+        <DialogTrigger />
+        <DialogContent className="min-w-[50vw]">
+          <DialogHeader>
+            <DialogTitle>Login Failed</DialogTitle>
+            <DialogDescription>{errorMessage}</DialogDescription>
+          </DialogHeader>
+          <DialogClose asChild>
+            <Button onPress={() => setDialogVisible(false)}>
+              <Text>OK</Text>
+            </Button>
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
     </SafeAreaView>
   );
 }

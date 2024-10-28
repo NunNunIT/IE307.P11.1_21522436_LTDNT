@@ -34,10 +34,10 @@ const DrawerLayout = () => {
         }}
       />
       <Drawer.Screen
-        name="(bt1)/index"
+        name="(bt2)/index"
         options={{
-          headerTitle: 'BT1',
-          drawerLabel: 'BT1',
+          headerTitle: 'BT2',
+          drawerLabel: 'BT2',
           drawerIcon: ({ size, color }) => <Icon name="cog" size={size} color={color} />,
           // headerRight: () => (
           //   <Pressable
@@ -51,10 +51,10 @@ const DrawerLayout = () => {
         }}
       />
       <Drawer.Screen
-        name="(bt2)"
+        name="(bt3)"
         options={{
           headerTitle: '',
-          drawerLabel: 'BT2',
+          drawerLabel: 'BT3',
           drawerIcon: ({ size, color }) => <Icon name="carrot" size={size} color={color} />,
           headerRight: () => (
             <Pressable
