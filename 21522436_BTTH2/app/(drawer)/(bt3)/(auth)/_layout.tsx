@@ -1,6 +1,4 @@
 // 21522436 - Nguyễn Thị Hồng Nhun
-
-// import * as Linking from 'expo-linking';
 import { Slot } from 'expo-router';
 import React from 'react';
 import { View, ScrollView } from 'react-native';
@@ -8,7 +6,6 @@ import { View, ScrollView } from 'react-native';
 import { LogoHeader } from '~/components/logoHeader';
 
 export default function AuthLayout() {
-  // const routeName = await Linking.getInitialURL();
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View className="flex h-48 flex-col items-center justify-center bg-white py-2 dark:bg-zinc-900">
