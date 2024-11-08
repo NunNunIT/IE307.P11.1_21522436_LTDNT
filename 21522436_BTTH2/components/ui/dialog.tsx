@@ -68,7 +68,7 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Content
           ref={ref}
           className={cn(
-            'border-border bg-background max-w-lg gap-4 rounded-lg border p-6 shadow-lg web:cursor-default web:duration-200',
+            'max-w-lg gap-4 rounded-lg border border-border bg-background p-6 shadow-lg web:cursor-default web:duration-200',
             open
               ? 'web:animate-in web:fade-in-0 web:zoom-in-95'
               : 'web:animate-out web:fade-out-0 web:zoom-out-95',
@@ -76,7 +76,7 @@ const DialogContent = React.forwardRef<
           )}
           {...props}>
           {children}
-          <DialogPrimitive.Close className="web:group web:ring-offset-background web:focus:ring-ring absolute right-4 top-4 rounded-sm p-0.5 opacity-70 web:transition-opacity web:hover:opacity-100 web:focus:outline-none web:focus:ring-2 web:focus:ring-offset-2 web:disabled:pointer-events-none">
+          <DialogPrimitive.Close className="web:group absolute right-4 top-4 rounded-sm p-0.5 opacity-70 web:ring-offset-background web:transition-opacity web:hover:opacity-100 web:focus:outline-none web:focus:ring-2 web:focus:ring-ring web:focus:ring-offset-2 web:disabled:pointer-events-none">
             <X
               size={Platform.OS === 'web' ? 16 : 18}
               className={cn('text-muted-foreground', open && 'text-accent-foreground')}
@@ -107,7 +107,7 @@ const DialogTitle = React.forwardRef<DialogPrimitive.TitleRef, DialogPrimitive.T
     <DialogPrimitive.Title
       ref={ref}
       className={cn(
-        'native:text-xl text-foreground text-lg font-semibold leading-none tracking-tight',
+        'native:text-xl text-lg font-semibold leading-none tracking-tight text-foreground',
         className
       )}
       {...props}
@@ -122,7 +122,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn('native:text-base text-muted-foreground text-sm', className)}
+    className={cn('native:text-base text-sm text-muted-foreground', className)}
     {...props}
   />
 ));
