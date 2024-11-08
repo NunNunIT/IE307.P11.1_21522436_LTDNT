@@ -1,7 +1,7 @@
 // 21522436 - Nguyễn Thị Hồng Nhung
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { Home, Component, Heart, User } from '~/lib/icons/IconList';
 export default function TabLayout() {
@@ -16,16 +16,16 @@ export default function TabLayout() {
           title: 'Home',
           tabBarLabel: ({ focused }) => (
             <Text
-              className={`text-xs ${focused ? 'text-sky-500' : 'text-zinc-500'} 
-              dark:${focused ? 'text-sky-500' : 'text-zinc-300'}`}>
+              className={`text-xs ${focused ? 'text-teal-500' : 'text-zinc-500'} 
+              dark:${focused ? 'text-teal-500' : 'text-zinc-300'}`}>
               Home
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
             <Home
-              fill={focused ? '#0ea5e9' : '#fff'}
+              fill={focused ? '#14b8a6' : '#fff'}
               className={`size-20  
-                ${focused ? 'text-sky-500 dark:text-sky-500' : 'text-zinc-500 dark:text-zinc-300'}`}
+                ${focused ? 'text-teal-500 dark:text-teal-500' : 'text-zinc-500 dark:text-zinc-300'}`}
             />
           ),
         }}
@@ -36,16 +36,16 @@ export default function TabLayout() {
           title: 'Categories',
           tabBarLabel: ({ focused }) => (
             <Text
-              className={`text-xs ${focused ? 'text-sky-500' : 'text-zinc-500'} 
-              dark:${focused ? 'text-sky-500' : 'text-zinc-300'}`}>
+              className={`text-xs ${focused ? 'text-teal-500' : 'text-zinc-500'} 
+              dark:${focused ? 'text-teal-500' : 'text-zinc-300'}`}>
               Categories
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
             <Component
-              fill={focused ? '#0ea5e9' : '#fff'}
+              fill={focused ? '#14b8a6' : '#fff'}
               className={`size-20  
-                ${focused ? 'text-sky-500 dark:text-sky-500' : 'text-zinc-500 dark:text-zinc-300'}`}
+                ${focused ? 'text-teal-500 dark:text-teal-500' : 'text-zinc-500 dark:text-zinc-300'}`}
             />
           ),
         }}
@@ -56,17 +56,22 @@ export default function TabLayout() {
           title: 'Favourites',
           tabBarLabel: ({ focused }) => (
             <Text
-              className={`text-xs ${focused ? 'text-sky-500' : 'text-zinc-500'} 
-              dark:${focused ? 'text-sky-500' : 'text-zinc-300'}`}>
+              className={`text-xs ${focused ? 'text-teal-500' : 'text-zinc-500'} 
+              dark:${focused ? 'text-teal-500' : 'text-zinc-300'}`}>
               Favourites
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
-            <Heart
-              className={`size-20  
-                ${focused ? 'text-sky-500 dark:text-sky-500' : 'text-zinc-500 dark:text-zinc-300'}`}
-              fill={focused ? '#0ea5e9' : '#fff'}
-            />
+            <View className="relative">
+              <Heart
+                className={`size-20  
+                ${focused ? 'text-teal-500 dark:text-teal-500' : 'text-zinc-500 dark:text-zinc-300'}`}
+                fill={focused ? '#14b8a6' : '#fff'}
+              />
+              <Text className="absolute -right-2 top-0 z-10 aspect-square size-4 rounded-full bg-red-600 text-center text-[0.5rem] text-white">
+                3
+              </Text>
+            </View>
           ),
         }}
       />
@@ -76,16 +81,16 @@ export default function TabLayout() {
           title: 'Profile',
           tabBarLabel: ({ focused }) => (
             <Text
-              className={`text-xs ${focused ? 'text-sky-500' : 'text-zinc-500'} 
-              dark:${focused ? 'text-sky-500' : 'text-zinc-300'}`}>
+              className={`text-xs ${focused ? 'text-teal-500' : 'text-zinc-500'} 
+              dark:${focused ? 'text-teal-500' : 'text-zinc-300'}`}>
               Profile
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
             <User
-              fill={focused ? '#0ea5e9' : '#fff'}
+              fill={focused ? '#14b8a6' : '#fff'}
               className={`size-20  
-                ${focused ? 'text-sky-500 dark:text-sky-500' : 'text-zinc-500 dark:text-zinc-300'}`}
+                ${focused ? 'text-teal-500 dark:text-teal-500' : 'text-zinc-500 dark:text-zinc-300'}`}
             />
           ),
         }}

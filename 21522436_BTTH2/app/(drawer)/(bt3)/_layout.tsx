@@ -19,7 +19,7 @@ const InitialLayout = () => {
       router.replace('/(tabs)');
     } else if (!session) {
       // Redirect unauthenticated users to the login page
-      router.replace('/(auth)');
+      router.replace('/(auth)/login');
     }
   }, [session]);
 
