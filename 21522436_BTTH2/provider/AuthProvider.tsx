@@ -10,6 +10,7 @@ type AuthProps = {
   session: Session | null;
   initialized?: boolean;
   signOut?: () => void;
+  setSession?: any;
 };
 
 export const AuthContext = createContext<Partial<AuthProps>>({});
@@ -46,6 +47,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     session,
     initialized,
     signOut,
+    setSession
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
