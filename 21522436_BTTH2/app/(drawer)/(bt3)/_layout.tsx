@@ -1,3 +1,4 @@
+// 21522436 - Nguyễn Thị Hồng Nhung
 import { Slot, useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
 

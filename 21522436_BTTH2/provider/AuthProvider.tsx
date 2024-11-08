@@ -1,5 +1,7 @@
+// 21522436 - Nguyễn Thị Hồng Nhung
 import { Session, User } from '@supabase/supabase-js';
-import React, { useState, useEffect, createContext, PropsWithChildren } from 'react';
+import React, { useState, useEffect, 
+  createContext, PropsWithChildren } from 'react';
 
 import { supabase } from '~/utils/supabase';
 
@@ -48,3 +50,4 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
