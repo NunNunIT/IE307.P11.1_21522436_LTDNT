@@ -1,7 +1,9 @@
 // 21522436 - Nguyễn Thị Hồng Nhung
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Pressable, useColorScheme } from 'react-native';
+import { View, Image, TouchableOpacity, Pressable, useColorScheme } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+
+import { Text } from '../ui/text';
 
 interface Post {
   username: string;
@@ -132,7 +134,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
 
         {/* Emotion Selection Bar */}
         {showEmotions && (
-          <View className="absolute -top-16 left-3 flex-row gap-3 space-x-2 rounded-2xl bg-zinc-100 p-2 px-3 shadow-lg dark:bg-zinc-800">
+          <View className="absolute -top-16 left-3 flex-row gap-3 rounded-2xl bg-zinc-100 p-2 px-3 shadow-lg dark:bg-zinc-800">
             {Object.keys(emotionColors)
               .slice(1, 6)
               .map((emotion) => (
