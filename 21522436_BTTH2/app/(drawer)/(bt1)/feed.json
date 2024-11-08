@@ -1,0 +1,40 @@
+{
+    "posts": [
+      {
+        "username": "Thalassophile",
+        "avt": "https://cdn.pixabay.com/photo/2024/05/21/15/32/beautiful-8778428_640.png",
+        "content": "Enjoying a beautiful day at the beach! 🌊🏝️",
+        "imageUrl": "https://mettavoyage.com/wp-content/uploads/2023/05/nha-trang-beaches-1.webp",
+        "likes": 211,
+        "comments": 18,
+        "shares": 10
+      },
+      {
+        "username": "Bugcat Capoo",
+        "avt": "https://upload.wikimedia.org/wikipedia/en/8/88/Bugcat_Capoo.jpg",
+        "content": "Hello world!",
+        "likes": 88,
+        "comments": 10,
+        "shares": 7
+      },
+      {
+        "username": "MountainLover",
+        "avt": "https://i.pinimg.com/564x/e5/80/2b/e5802b649387d7755a1e0a2cbd676a7a.jpg",
+        "content": "Hiking up the mountains 🏔️",
+        "imageUrl": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9cc73585-1ddd-4b49-a448-1e6a09a42fa9/dg37dzx-99448674-2c0d-4f25-a372-2224c8b44579.png/v1/fill/w_1280,h_854,q_80,strp/moutain_landscape_by_tixu66_dg37dzx-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODU0IiwicGF0aCI6IlwvZlwvOWNjNzM1ODUtMWRkZC00YjQ5LWE0NDgtMWU2YTA5YTQyZmE5XC9kZzM3ZHp4LTk5NDQ4Njc0LTJjMGQtNGYyNS1hMzcyLTIyMjRjOGI0NDU3OS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.ODuLc2_qc1GucXV1s0RGFGlFt-6FNqDLqpQFxTX-soQ",
+        "likes": 154,
+        "comments": 23,
+        "shares": 7
+      },
+      {
+        "username": "Bugcat Capoo",
+        "avt": "https://upload.wikimedia.org/wikipedia/en/8/88/Bugcat_Capoo.jpg",
+        "content": "Help 🚩",
+        "imageUrl": "https://i.ytimg.com/vi/b0xpqhWNA8A/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLATVSl6RNED_hcfwQ0N512-AWkKwQ",
+        "likes": 100,
+        "comments": 10,
+        "shares": 7
+      }
+    ]
+  }
+  
