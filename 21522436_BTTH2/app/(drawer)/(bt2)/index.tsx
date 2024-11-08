@@ -7,7 +7,7 @@ import { FAQSection } from '~/components/FAQSection';
 import DarkSwitch from '~/components/darkModeOption/switch';
 import { FeedbackSection } from '~/components/feedbackSection';
 import { LogoHeader } from '~/components/logoHeader';
-import { NotificationSettings } from '~/components/notificationSetting';
+import { NotificationSettings } from '~/components/notiSetting';
 import { Text } from '~/components/ui/text';
 
 const SettingsAndFeedbackScreen = () => {
