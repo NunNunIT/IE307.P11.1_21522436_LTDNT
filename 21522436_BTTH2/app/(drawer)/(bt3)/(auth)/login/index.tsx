@@ -26,7 +26,6 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const { setSession } = useAuth();
 
   const {
     control,
@@ -49,12 +48,6 @@ export default function Login() {
     });
 
     if (error) {
-      // Trong trường hợp supabase bị disable tự động
-      if (email == '21522436@gm.uit.edu.vn' && password == 'nguyenthihongnhung') {
-        setSession('123');
-        return;
-      }
-
       Alert.alert('Login Failed', error.message, [
         { text: 'OK', onPress: () => console.log('OK Pressed') },
       ]);

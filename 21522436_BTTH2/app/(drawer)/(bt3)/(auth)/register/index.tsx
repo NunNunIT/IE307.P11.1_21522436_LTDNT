@@ -1,6 +1,6 @@
 // 21522436 - Nguyễn Thị Hồng Nhung
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { View, Alert } from 'react-native';
@@ -28,6 +28,7 @@ const schema = z
   });
 
 export default function Register() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -52,11 +53,12 @@ export default function Register() {
     });
 
     if (error) {
+      console.log(error)
       Alert.alert('Sign up Failed', error.message, [
         { text: 'OK', onPress: () => console.log('OK Pressed') },
       ]);
     } else {
-      // Success logic here
+      router.replace('/(auth)/login');
     }
   };
 
