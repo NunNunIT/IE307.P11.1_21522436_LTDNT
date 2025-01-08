@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import {
   Dimensions,
   Image,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Text } from "@/components/ui/text";
 import { supabase } from "@/supabase/supabase";
+import { Button } from "@/components/ui/button";
 
 const { width } = Dimensions.get("window");
 
@@ -16,7 +17,7 @@ const LocationDetailScreen = () => {
   const { id } = useLocalSearchParams(); // Get dynamic route parameter
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [data, setData] = useState<any>(null); // Data state
-  // const navigation = useNavigation(); // For setting the header title
+  const navigation = useNavigation(); // For setting the header title
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -45,13 +46,15 @@ const LocationDetailScreen = () => {
   }, [id]);
 
   // Update the header title based on the fetched location title
-  // useEffect(() => {
-  //   if (data?.title) {
-  //     navigation.setOptions({
-  //       title: data.title, // Display the title in the header
-  //     });
-  //   }
-  // }, [data?.title]);
+  useEffect(() => {
+    if (data?.title) {
+      navigation.setOptions({
+        title: data.title, // Display the title in the header
+      });
+    }
+  }, [data?.title]);
+
+  console.log("data", data);
 
   return (
     <View className="w-full h-full">
@@ -78,12 +81,15 @@ const LocationDetailScreen = () => {
             </Text>
           </View>
 
-          {/* Description */}
-          <View className="flex flex-col mt-2 p-2">
-            <Text className="text-black dark:text-white text-left font-medium text-sm">
-              {data?.description}
+          <View className="p-2">
+            <Text className="text-xl text-zinc-900 dark:text-zinc-100">
+              {data?.address}
             </Text>
           </View>
+
+          <Button onPress={() => router.push(`/map/${id}`)}>
+            <Text>Xem trên bản đồ</Text>
+          </Button>
 
           {/* Bottom padding */}
           <View className="pb-20" />

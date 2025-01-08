@@ -9,7 +9,7 @@ interface LocationCardProps {
     id: string;
     img?: string;
     title?: string;
-    description?: string;
+    address?: string;
   };
   handleClick?: () => void;
 }
@@ -41,7 +41,7 @@ export default function LocationCard({ item, handleClick }: LocationCardProps) {
             numberOfLines={3}
             className="text-sm text-zinc-900 dark:text-zinc-400 mt-2"
           >
-            {item?.description || "Mô tả địa điểm"}
+            {item?.address || "Địa chỉ địa điểm"}
           </Text>
         </View>
       </TouchableOpacity>

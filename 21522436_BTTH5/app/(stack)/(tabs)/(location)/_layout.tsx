@@ -30,7 +30,8 @@ export default function PlaceLayout() {
         }}
       />
       <Stack.Screen name="locationDetail/[id]" />
-      <Stack.Screen name="map" options={{ title: "View on Map" }} />
+      <Stack.Screen name="map/[id]" />
+      <Stack.Screen name="choose-in-map" options={{ title: "Choose on Map" }} />
     </Stack>
   );
 }

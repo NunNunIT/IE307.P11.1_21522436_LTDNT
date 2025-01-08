@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dimensions, ScrollView, View, Image } from "react-native";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
@@ -9,11 +9,18 @@ import ImageUploadType1 from "@/components/imageUpload/type1";
 import { supabase } from "@/supabase/supabase";
 import * as FileSystem from "expo-file-system";
 import { Description } from "@rn-primitives/dialog";
-import LocateSelector from "@/components/locateSelect/type1";
+import LocateSelector from "@/components/locateSelect/currentLocation";
 import DarkModeSwitch from "@/components/darkModeOption/switch";
 import DarkModeText from "@/components/darkModeOption/text";
 import { useLocationStore } from "@/components/locateSelect/locationStore";
-
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { StyleSheet } from "react-native";
+import { ActivityIndicator } from "react-native";
+import { uploadFileFromUri } from "@/supabase/storage";
+import { unicodeToAscii } from "@/lib/func/unicode";
+import { toast } from 'sonner-native';
 const { width } = Dimensions.get("window");
 
 interface ProfileFormData {
@@ -25,10 +32,37 @@ export default function ProfileForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDirtyFields, setIsDirtyFields] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isMapLoading, setIsMapLoading] = useState(false);
   const [formData, setFormData] = useState<ProfileFormData>({
     title: "",
   });
   const [imagePath, setImagePath] = useState<string>("");
+  const selectedLocation = useLocationStore((state) => state.selectedLocation);
+
+  // State for map region
+  const [mapRegion, setMapRegion] = useState({
+    latitude: 10.87,
+    longitude: 106.806,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
+
+  // Update map region when selectedLocation changes
+  useEffect(() => {
+    if (selectedLocation) {
+      setIsMapLoading(true);
+      setMapRegion({
+        latitude: selectedLocation.latitude,
+        longitude: selectedLocation.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      });
+      // Add a small delay to show loading state
+      setTimeout(() => {
+        setIsMapLoading(false);
+      }, 1000);
+    }
+  }, [selectedLocation]);
 
   const updateField = (field: keyof ProfileFormData, value: string) => {
     setFormData((prev) => ({
@@ -37,52 +71,6 @@ export default function ProfileForm() {
     }));
     setIsDirtyFields(true);
     setError(null);
-  };
-
-  // Function to generate a unique filename
-  const generateUniqueFileName = (originalPath: string) => {
-    const timestamp = new Date().getTime();
-    const random = Math.floor(Math.random() * 10000);
-    const extension = originalPath.split(".").pop();
-    return `${timestamp}-${random}.${extension}`;
-  };
-  const selectedLocation = useLocationStore((state) => state.selectedLocation);
-
-  // Function to upload image to Supabase Storage
-  const uploadImageToSupabase = async (uri: string): Promise<string> => {
-    try {
-      // Read the file as base64
-      const fileBase64 = await FileSystem.readAsStringAsync(uri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-
-      // Generate unique filename
-      const fileName = generateUniqueFileName(uri);
-
-      // Convert base64 to a format suitable for Supabase
-      const fileBlob = `data:image/jpeg;base64,${fileBase64}`; // Adjust MIME type as needed
-
-      // Upload to Supabase Storage
-      const { data, error } = await supabase.storage
-        .from("BTTH5")
-        .upload(`public/${fileName}`, fileBlob, {
-          contentType: "image/jpeg",
-          cacheControl: "3600",
-          upsert: false,
-        });
-
-      if (error) throw error;
-
-      // Get public URL
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("BTTH5").getPublicUrl(`public/${fileName}`);
-
-      return publicUrl;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      throw new Error("Failed to upload image");
-    }
   };
 
   const submitHandler = async () => {
@@ -96,8 +84,11 @@ export default function ProfileForm() {
         throw new Error("Please fill in all fields and upload an image");
       }
 
-      // Upload image first
-      //   const imageUrl = await uploadImageToSupabase(imagePath);
+      // const _data = await uploadFileFromUri(
+      //   "places",
+      //   `${unicodeToAscii(formData.title)}.${new Date().getTime()}.jpg`,
+      //   imagePath
+      // );
 
       // Insert data into locations table
       const { data, error } = await supabase
@@ -106,9 +97,9 @@ export default function ProfileForm() {
           {
             title: formData.title,
             img: imagePath,
-            lat: selectedLocation?.latitude,
-            long: selectedLocation?.longitude,
-            address: selectedLocation?.title
+            latitude: selectedLocation?.latitude,
+            longitude: selectedLocation?.longitude,
+            address: selectedLocation?.title,
           },
         ])
         .select();
@@ -123,9 +114,11 @@ export default function ProfileForm() {
       setIsDirtyFields(false);
 
       console.log("Successfully submitted:", data);
+      toast.success("New place added successfully");
     } catch (error) {
       console.error("Error submitting form:", error);
       setError(error instanceof Error ? error.message : "An error occurred");
+      toast.success("Error");
     } finally {
       setIsSubmitting(false);
     }
@@ -160,7 +153,6 @@ export default function ProfileForm() {
       borderColor: colorScheme === "dark" ? "#27272a" : "#e4e4e7",
     },
   });
-
 
   return (
     <View className="flex-1">
@@ -215,18 +207,56 @@ export default function ProfileForm() {
             </View>
           )}
         </View>
+
         <View className="flex-1 mb-8 bg-zinc-100 dark:bg-zinc-900 p-8">
-          <LocateSelector />
-          {selectedLocation ? (
-        <View>
-          <Text>Địa điểm đã chọn:</Text>
-          <Text>Vĩ độ: {selectedLocation.latitude}</Text>
-          <Text>Kinh độ: {selectedLocation.longitude}</Text>
-          <Text>Địa chỉ: {selectedLocation.title}</Text>
-        </View>
-      ) : (
-        <Text>Chưa chọn địa điểm</Text>
-      )}
+          <View className="mt-8 flex flex-row flex-wrap justify-around gap-8">
+            <LocateSelector />
+
+            <Button
+              className="flex flex-row"
+              onPress={() => router.push("/choose-in-map")}
+            >
+              <MaterialIcons name="map" size={24} color="white" />
+              <Text>Chọn trên bản đồ</Text>
+            </Button>
+          </View>
+
+          <View style={styles.mapContainer}>
+            {isMapLoading ? (
+              <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#0000ff" />
+                <Text style={styles.loadingText}>Hãy đợi...</Text>
+              </View>
+            ) : selectedLocation ? (
+              <MapView
+                provider={PROVIDER_GOOGLE}
+                style={styles.mapPreview}
+                region={mapRegion}
+                onRegionChangeComplete={(region) => {
+                  setMapRegion(region);
+                }}
+              >
+                <Marker
+                  key={`${selectedLocation.latitude}-${selectedLocation.longitude}`}
+                  coordinate={selectedLocation}
+                  title={selectedLocation.title}
+                />
+              </MapView>
+            ) : (
+              <View style={styles.placeholderContainer}>
+                <Text>Chưa chọn địa điểm</Text>
+              </View>
+            )}
+          </View>
+
+          {selectedLocation && !isMapLoading && (
+            <View className="mt-4">
+              <Text className="font-medium">Địa điểm đã chọn:</Text>
+              <Text>Vĩ độ: {selectedLocation.latitude}</Text>
+              <Text>Kinh độ: {selectedLocation.longitude}</Text>
+              <Text>Địa chỉ: {selectedLocation.title}</Text>
+            </View>
+          )}
         </View>
         <DarkModeText />
       </ScrollView>
@@ -241,3 +271,53 @@ export default function ProfileForm() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  mapContainer: {
+    width: "100%",
+    height: 300,
+    borderRadius: 10,
+    marginTop: 15,
+    overflow: "hidden",
+    backgroundColor: "#f4f4f5",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f4f4f5",
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+  },
+  placeholderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f4f4f5",
+  },
+  mapPreview: {
+    width: "100%",
+    height: "100%",
+  },
+  buttonText: {
+    color: "white",
+    marginLeft: 8,
+    fontSize: 16,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 16,
+    textAlign: "center",
+    marginVertical: 10,
+  },
+  locationText: {
+    fontSize: 16,
+    marginVertical: 5,
+  },
+});
