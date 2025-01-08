@@ -34,13 +34,10 @@ export default function LocationCard({ item, handleClick }: LocationCardProps) {
 
         {/* Content Section */}
         <View className="mt-4 px-4">
-          <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-200">
+          <Text className="text-lg font-semibold text-zinc-900 ">
             {item?.title || "Tên địa điểm"}
           </Text>
-          <Text
-            numberOfLines={3}
-            className="text-sm text-zinc-900 dark:text-zinc-400 mt-2"
-          >
+          <Text numberOfLines={3} className="text-sm text-zinc-900  mt-2">
             {item?.address || "Địa chỉ địa điểm"}
           </Text>
         </View>

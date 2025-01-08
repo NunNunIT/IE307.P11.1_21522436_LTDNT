@@ -116,11 +116,12 @@ export default function ProfileForm() {
       setFormData({
         title: "",
       });
-      setImagePath("");
+      setImagePath("/place");
       setIsDirtyFields(false);
 
       console.log("Successfully submitted:", data);
       toast.success("New place added successfully");
+      router.push("/")
     } catch (error) {
       console.error("Error submitting form:", error);
       setError(error instanceof Error ? error.message : "An error occurred");
@@ -172,13 +173,13 @@ export default function ProfileForm() {
       >
         <TextField {...getTextFieldProps("Title", "title")} />
 
-        <View className="flex-1 my-8 bg-zinc-100 dark:bg-zinc-900 p-8">
+        <View className="flex-1 my-3 bg-zinc-100 dark:bg-zinc-900 p-2">
           {error && (
             <Text className="text-red-500 mt-2 text-center">{error}</Text>
           )}
 
           {imagePath ? (
-            <View className="mb-8 justify-center items-center">
+            <View className="mb-3 justify-center items-center">
               <Image
                 source={{ uri: imagePath }}
                 className="w-full h-48 aspect-[4/3] mt-4 rounded-lg mb-3 border-zinc-600 border-dashed border-2"

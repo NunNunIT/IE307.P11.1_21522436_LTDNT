@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { FlatList, StyleSheet, View, ActivityIndicator, Text, RefreshControl } from "react-native";
 import LocationCard from "@/components/card/location";
 import { supabase } from "@/supabase/supabase";
+import DarkModeText from "@/components/darkModeOption/text";
 
 export default function HomeScreen() {
   const [locations, setLocations] = useState([]);
@@ -68,6 +69,7 @@ export default function HomeScreen() {
           />
         }
       />
+      {/* <DarkModeText /> */}
     </View>
   );
 }

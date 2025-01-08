@@ -76,18 +76,18 @@ const LocationDetailScreen = () => {
 
           {/* Title */}
           <View className="p-2">
-            <Text className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            <Text className="text-2xl font-bold text-zinc-900 ">
               {data?.title}
             </Text>
           </View>
 
           <View className="p-2">
-            <Text className="text-xl text-zinc-900 dark:text-zinc-100">
+            <Text className="text-xl text-zinc-900 ">
               {data?.address}
             </Text>
           </View>
 
-          <Button onPress={() => router.push(`/map/${id}`)}>
+          <Button variant="outline" onPress={() => router.push(`/map/${id}`)}>
             <Text>Xem trên bản đồ</Text>
           </Button>
 

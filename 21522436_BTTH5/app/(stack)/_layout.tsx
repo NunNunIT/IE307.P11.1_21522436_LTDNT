@@ -10,12 +10,6 @@ export default function StackLayout() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="image-preview"
-        options={{
-          title: "Image Preview",
-        }}
-      />
     </Stack>
   );
 }

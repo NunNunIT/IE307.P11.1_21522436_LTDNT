@@ -39,11 +39,7 @@ const SingleMarkerMap = () => {
     title: string;
   } | null>(
     selectedLocation
-      ? {
-          latitude: selectedLocation.latitude,
-          longitude: selectedLocation.longitude,
-          title: selectedLocation.title,
-        }
+      ? null
       : null
   );
 
@@ -123,12 +119,15 @@ const SingleMarkerMap = () => {
     }
   };
 
+  const [rerender, setRerender] = useState(Math.random());
+
   return (
     <View style={styles.container}>
       <Spinner visible={loading} />
 
       <MapView
         ref={mapRef}
+        key={rerender} 
         style={styles.map}
         initialRegion={region}
         onPress={handleMapPress}

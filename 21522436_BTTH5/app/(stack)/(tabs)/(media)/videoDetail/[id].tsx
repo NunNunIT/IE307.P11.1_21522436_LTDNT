@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import * as MediaLibrary from "expo-media-library";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import { Text } from "@/components/ui/text";
 import { Video } from "expo-av";
 
@@ -18,6 +18,7 @@ const MediaDetailScreen = () => {
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [media, setMedia] = useState(null); // Media details
   const videoRef = useRef(null); // Ref for Video component
+  const navigation = useNavigation(); // For setting the header title
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -44,6 +45,12 @@ const MediaDetailScreen = () => {
       fetchMedia();
     }
   }, [id]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: media?.filename || "Media Detail", // Ensure title is updated consistently
+    });
+  }, [media?.filename, navigation]);
 
   if (isLoading) {
     return (

@@ -28,7 +28,7 @@ export default function VideoCard({ item, handleClick }: VideoCardProps) {
               "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/a0/1a/5d/an-lam-retreats-saigon.jpg?w=300&h=-1&s=1",
           }}
           resizeMode="cover"
-          className="w-full h-full h-56 object-cover rounded-lg"
+          className="w-full h-full object-cover rounded-lg"
         />
       </TouchableOpacity>
     </View>

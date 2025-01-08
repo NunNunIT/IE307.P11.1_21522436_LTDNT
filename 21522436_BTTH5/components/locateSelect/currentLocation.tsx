@@ -1,6 +1,6 @@
 // components/LocateSelector.tsx
 import { useState, useEffect } from "react";
-import { Platform, Text, View, StyleSheet } from "react-native";
+import { Platform, View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import * as Location from "expo-location";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -8,6 +8,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Button } from "../ui/button";
 import { useLocationStore, LocationType } from "./locationStore";
+import { Text } from "../ui/text";
 
 export default function CurrentLocateSelector() {
   const [location, setLocation] = useState<Location.LocationObject | null>(
@@ -56,35 +57,8 @@ export default function CurrentLocateSelector() {
   return (
     <Button className="flex flex-row" onPress={getCurrentLocation}>
       <MaterialIcons name="my-location" size={24} color="white" />
-      <Text style={styles.buttonText}>Vị trí hiện tại</Text>
+      <Text>Vị trí hiện tại</Text>
     </Button>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "white",
-    marginLeft: 8,
-    fontSize: 16,
-  },
-  errorText: {
-    color: "red",
-    fontSize: 16,
-    textAlign: "center",
-    marginVertical: 10,
-  },
-  locationText: {
-    fontSize: 16,
-    marginVertical: 5,
-  },
-  mapPreview: {
-    width: "100%",
-    height: 300,
-    borderRadius: 10,
-    marginTop: 15,
-  },
-});
