@@ -20,7 +20,7 @@ import { StyleSheet } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { uploadFileFromUri } from "@/supabase/storage";
 import { unicodeToAscii } from "@/lib/func/unicode";
-import { toast } from 'sonner-native';
+import { toast } from "sonner-native";
 const { width } = Dimensions.get("window");
 
 interface ProfileFormData {
@@ -38,6 +38,12 @@ export default function ProfileForm() {
   });
   const [imagePath, setImagePath] = useState<string>("");
   const selectedLocation = useLocationStore((state) => state.selectedLocation);
+  const { setSelectedLocation } = useLocationStore();
+
+  // Gán selectedLocation là null mỗi khi vào trang
+  useEffect(() => {
+    setSelectedLocation(null); // Đặt giá trị selectedLocation là null
+  }, [setSelectedLocation]);
 
   // State for map region
   const [mapRegion, setMapRegion] = useState({
@@ -85,7 +91,7 @@ export default function ProfileForm() {
       }
 
       // const _data = await uploadFileFromUri(
-      //   "places",
+      //   'BTTH5',
       //   `${unicodeToAscii(formData.title)}.${new Date().getTime()}.jpg`,
       //   imagePath
       // );
@@ -209,12 +215,15 @@ export default function ProfileForm() {
         </View>
 
         <View className="flex-1 mb-8 bg-zinc-100 dark:bg-zinc-900 p-8">
-          <View className="mt-8 flex flex-row flex-wrap justify-around gap-8">
+          <View className="mt-8 flex flex-row justify-around gap-2">
             <LocateSelector />
 
             <Button
               className="flex flex-row"
-              onPress={() => router.push("/choose-in-map")}
+              onPress={() => {
+                const uniqueKey = new Date().getTime(); // Tạo một key duy nhất
+                router.push(`/choose-in-map?refreshKey=${uniqueKey}`);
+              }}
             >
               <MaterialIcons name="map" size={24} color="white" />
               <Text>Chọn trên bản đồ</Text>
@@ -258,7 +267,7 @@ export default function ProfileForm() {
             </View>
           )}
         </View>
-        <DarkModeText />
+        {/* <DarkModeText /> */}
       </ScrollView>
 
       <Button

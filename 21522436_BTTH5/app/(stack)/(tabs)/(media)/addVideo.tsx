@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import * as Notifications from 'expo-notifications';
 import { router } from 'expo-router';
+import { toast } from 'sonner-native';
 
 const AddVideoScreen = () => {
   const [videoUri, setVideoUri] = useState(null);
@@ -80,6 +81,7 @@ const AddVideoScreen = () => {
       if (status === 'granted') {
         await MediaLibrary.saveToLibraryAsync(videoUri);
         await showNotification();
+        toast.success("Video saved successfully");
         router.replace("/gallery");
       } else {
         Alert.alert('Permission Required', 'Please grant permission to save videos');
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   video: {
-    flex: 1,
+    flex: 0.8,
   },
   buttonContainer: {
     flexDirection: "row",

@@ -60,7 +60,7 @@ export default function TabTwoScreen() {
         <FlatList
           data={mediaFiles}
           renderItem={({ item }) => (
-            <View className="m-2">
+            <View className="m-2 w-[45%]">
               <VideoCard item={item} />
             </View>
           )}

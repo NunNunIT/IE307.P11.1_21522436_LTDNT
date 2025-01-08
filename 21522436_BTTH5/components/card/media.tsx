@@ -15,7 +15,7 @@ interface VideoCardProps {
 
 export default function VideoCard({ item, handleClick }: VideoCardProps) {
   return (
-    <View className="relative h-96 aspect-square">
+    <View className="relative h-96 w-full">
       <TouchableOpacity
         onPress={() => router.push(`/videoDetail/${item?.id || ""}`)}
         className="w-full h-full"

@@ -1,4 +1,3 @@
-// VideoRecordComponent.tsx
 import {
   CameraType,
   CameraView,
@@ -6,21 +5,17 @@ import {
   useMicrophonePermissions,
 } from "expo-camera";
 import { useState, useRef } from "react";
-import { StyleSheet, TouchableOpacity, View, Platform } from "react-native";
-import * as MediaLibrary from "expo-media-library";
+import { StyleSheet, TouchableOpacity, View, Platform, Alert } from "react-native";
 import { Button } from "../ui/button";
 import { Text } from "../ui/text";
-import {
-  SwitchCamera,
-} from "@/lib/icons";
+import { SwitchCamera } from "@/lib/icons";
 
 const VideoRecordComponent = ({ onVideoRecorded }) => {
   const [facing, setFacing] = useState("back" as CameraType);
   const [permission, requestPermission] = useCameraPermissions();
+  const [microphonePermission, requestPermissionMic] = useMicrophonePermissions();
   const cameraRef = useRef(null);
   const [recording, setRecording] = useState(false);
-  const [microphonePermission, requestPermissionMic] =
-    useMicrophonePermissions();
 
   if (!permission) {
     return <View />;
@@ -32,7 +27,7 @@ const VideoRecordComponent = ({ onVideoRecorded }) => {
         <Text style={{ textAlign: "center" }}>
           We need your permission to show the camera
         </Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Button onPress={requestPermission} title="Grant Permission" />
       </View>
     );
   }
@@ -49,17 +44,25 @@ const VideoRecordComponent = ({ onVideoRecorded }) => {
           const { status } = await requestPermissionMic();
           finalStatus = status;
         }
-        if (finalStatus !== "granted") {
-          return false;
-        }
-        return true;
+        return finalStatus === "granted";
       }
+      return true;
     } catch (e) {
       console.log("Error in asking for microphone permissions", e);
+      return false;
     }
   };
 
   const record = async () => {
+    const hasMicrophonePermission = await askForMicrophonePermissions();
+    if (!hasMicrophonePermission) {
+      Alert.alert(
+        "Permission Required",
+        "Microphone access is required to record video. Please enable it in your device settings."
+      );
+      return;
+    }
+
     if (cameraRef.current) {
       try {
         if (!recording) {
@@ -101,18 +104,12 @@ const VideoRecordComponent = ({ onVideoRecorded }) => {
               onPress={record}
             >
               <View
-                className={`rounded-full size-20  ${
+                className={`rounded-full size-20 ${
                   recording ? "bg-red-500" : "bg-white/70"
-                } `}
+                }`}
               ></View>
             </TouchableOpacity>
           </View>
-          {/* <TouchableOpacity
-            style={styles.button}
-            onPress={askForMicrophonePermissions}
-          >
-            <Text style={styles.text}>Request Mic Perm</Text>
-          </TouchableOpacity> */}
         </View>
       </CameraView>
     </View>
@@ -127,30 +124,11 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
-  video: {
-    flex: 1,
-  },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
     backgroundColor: "transparent",
     margin: 30,
-  },
-  button: {
-    flex: 1,
-    alignSelf: "flex-end",
-    alignItems: "center",
-  },
-  button2: {
-    flex: 1,
-    alignSelf: "flex-end",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
   },
 });
 

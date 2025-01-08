@@ -15,7 +15,7 @@ export default function PlaceLayout() {
                 console.log("Navigating to addLocation");
                 router.push("/addLocation");
               }}
-              style={{ padding: 10, backgroundColor: "red" }}
+              style={{ padding: 10 }}
               activeOpacity={0.7}
             >
               <FontAwesome name="plus-circle" size={24} color={"black"} />

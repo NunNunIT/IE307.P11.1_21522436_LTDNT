@@ -99,7 +99,7 @@ const SingleMarkerMap = () => {
 
     // Update global location store
     await setSelectedLocation(currentMarker);
-    setLoading(loading);
+    setLoading(true);
 
     navigation.goBack();
   };
@@ -137,6 +137,7 @@ const SingleMarkerMap = () => {
       >
         {currentMarker && (
           <Marker
+            title={currentMarker.title}
             coordinate={{
               latitude: currentMarker.latitude,
               longitude: currentMarker.longitude,

@@ -13,12 +13,12 @@ export default function MediaLayout() {
         options={{
           title: "My Gallery",
           headerRight: ({ tintColor }) => (
-            <Button
+            <TouchableOpacity
               onPress={() => router.push(`/addVideo`)}
-              className="p-2 aspect-square bg-red-500"
+              className="p-2 aspect-square"
             >
               <FontAwesome name="plus-circle" size={24} color={tintColor} />
-            </Button>
+            </TouchableOpacity>
           ),
         }}
       />
