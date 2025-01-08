@@ -12,6 +12,7 @@ import { Description } from "@rn-primitives/dialog";
 import LocateSelector from "@/components/locateSelect/type1";
 import DarkModeSwitch from "@/components/darkModeOption/switch";
 import DarkModeText from "@/components/darkModeOption/text";
+import { useLocationStore } from "@/components/locateSelect/locationStore";
 
 const { width } = Dimensions.get("window");
 
@@ -45,6 +46,7 @@ export default function ProfileForm() {
     const extension = originalPath.split(".").pop();
     return `${timestamp}-${random}.${extension}`;
   };
+  const selectedLocation = useLocationStore((state) => state.selectedLocation);
 
   // Function to upload image to Supabase Storage
   const uploadImageToSupabase = async (uri: string): Promise<string> => {
@@ -104,6 +106,9 @@ export default function ProfileForm() {
           {
             title: formData.title,
             img: imagePath,
+            lat: selectedLocation?.latitude,
+            long: selectedLocation?.longitude,
+            address: selectedLocation?.title
           },
         ])
         .select();
@@ -155,6 +160,7 @@ export default function ProfileForm() {
       borderColor: colorScheme === "dark" ? "#27272a" : "#e4e4e7",
     },
   });
+
 
   return (
     <View className="flex-1">
@@ -211,6 +217,16 @@ export default function ProfileForm() {
         </View>
         <View className="flex-1 mb-8 bg-zinc-100 dark:bg-zinc-900 p-8">
           <LocateSelector />
+          {selectedLocation ? (
+        <View>
+          <Text>Địa điểm đã chọn:</Text>
+          <Text>Vĩ độ: {selectedLocation.latitude}</Text>
+          <Text>Kinh độ: {selectedLocation.longitude}</Text>
+          <Text>Địa chỉ: {selectedLocation.title}</Text>
+        </View>
+      ) : (
+        <Text>Chưa chọn địa điểm</Text>
+      )}
         </View>
         <DarkModeText />
       </ScrollView>
