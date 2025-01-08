@@ -3,7 +3,7 @@ import '~/global.css';
 import * as React from 'react';
 
 import { Slot, SplashScreen } from 'expo-router';
-
+import { PortalHost } from "@rn-primitives/portal";
 import { CameraProvider } from '@/components/CameraProvider';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider } from '~/provider/ThemeProvider';
@@ -27,6 +27,7 @@ export default function RootLayout() {
       <ThemeProvider>
         <CameraProvider>
           <Slot />
+          <PortalHost />
         </CameraProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
