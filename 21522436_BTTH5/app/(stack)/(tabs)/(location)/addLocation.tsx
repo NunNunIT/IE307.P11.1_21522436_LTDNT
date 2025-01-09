@@ -198,12 +198,12 @@ export default function ProfileForm() {
     maxLength: 30,
     containerStyle: { width: "100%" },
     fieldStyle: {
-      backgroundColor: colorScheme === "dark" ? "#18181b" : "#f4f4f5",
+      // backgroundColor: colorScheme === "dark" ? "#18181b" : "#f4f4f5",
       paddingVertical: 16,
       paddingHorizontal: 16,
       borderRadius: 999,
       borderWidth: 2,
-      borderColor: colorScheme === "dark" ? "#27272a" : "#e4e4e7",
+      // borderColor: colorScheme === "dark" ? "#27272a" : "#e4e4e7",
     },
   });
 
@@ -219,7 +219,7 @@ export default function ProfileForm() {
       >
         <TextField {...getTextFieldProps("Title", "title")} />
 
-        <View className="flex-1 my-3 bg-zinc-100 dark:bg-zinc-900 p-2">
+        <View className="flex-1 my-3 bg-zinc-100  p-2">
           {error && (
             <Text className="text-red-500 mt-2 text-center">{error}</Text>
           )}
@@ -261,7 +261,7 @@ export default function ProfileForm() {
           )}
         </View>
 
-        <View className="flex-1 mb-8 bg-zinc-100 dark:bg-zinc-900 p-8">
+        <View className="flex-1 mb-8 bg-zinc-100  p-8">
           <View className="mt-8 flex flex-row justify-around gap-2">
             <LocateSelector />
 
