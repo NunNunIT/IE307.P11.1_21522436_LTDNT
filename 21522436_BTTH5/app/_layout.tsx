@@ -7,7 +7,8 @@ import { PortalHost } from "@rn-primitives/portal";
 import { CameraProvider } from "@/components/CameraProvider";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ThemeProvider } from "~/provider/ThemeProvider";
-import { Toaster } from 'sonner-native';
+import { Toaster } from "sonner-native";
+import { NotificationProvider } from "@/provider/NotiProvider";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -26,7 +27,9 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView className="flex flex-1">
       <ThemeProvider>
-        <Slot />
+        <NotificationProvider>
+          <Slot />
+        </NotificationProvider>
         <PortalHost />
         <Toaster />
       </ThemeProvider>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dimensions, ScrollView, View, Image } from "react-native";
+import { Dimensions, ScrollView, View, Image, Alert } from "react-native";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { TextField } from "react-native-ui-lib";
@@ -21,6 +21,8 @@ import { ActivityIndicator } from "react-native";
 import { uploadFileFromUri } from "@/supabase/storage";
 import { unicodeToAscii } from "@/lib/func/unicode";
 import { toast } from "sonner-native";
+import * as Notifications from "expo-notifications";
+
 const { width } = Dimensions.get("window");
 
 interface ProfileFormData {
@@ -69,6 +71,49 @@ export default function ProfileForm() {
       }, 1000);
     }
   }, [selectedLocation]);
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+
+  const registerForPushNotificationsAsync = async () => {
+    try {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+
+      if (finalStatus !== "granted") {
+        Alert.alert(
+          "Notification Permission",
+          "Permission to send notifications is required."
+        );
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.log("Error requesting notification permissions:", error);
+      return false;
+    }
+  };
+
+  const showNotification = async () => {
+    try {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Location Saved",
+          body: "Your places saved",
+        },
+        trigger: null,
+      });
+    } catch (error) {
+      console.log("Error showing notification:", error);
+    }
+  };
 
   const updateField = (field: keyof ProfileFormData, value: string) => {
     setFormData((prev) => ({
@@ -121,7 +166,8 @@ export default function ProfileForm() {
 
       console.log("Successfully submitted:", data);
       toast.success("New place added successfully");
-      router.push("/")
+      await showNotification();
+      router.push("/");
     } catch (error) {
       console.error("Error submitting form:", error);
       setError(error instanceof Error ? error.message : "An error occurred");
